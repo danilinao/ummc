@@ -32,14 +32,12 @@ public class GUIView : MonoBehaviour {
     public int curViewState;
 
     public GameObject transPosPref;
-
     public GameObject transPosObj;
-
+    public GameObject curAxisObject;
+    public GameObject curObject;
 
     public Vector2 scrollPos;
 
-
-    public GameObject curObject;
 
     // Use this for initialization
     void Start () {
@@ -69,127 +67,65 @@ public class GUIView : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            Ray portalRay = new Ray();
             if (curViewState == -1)
             {
                 if (Input.mousePosition.x < Screen.height / 2 && Input.mousePosition.y > Screen.height / 2)
                 {
                     curViewSelected = 0;
-                    Ray portalRay = frontViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2)) * frontViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2 - 1) * frontViewCamera.pixelHeight, Input.mousePosition.z));
-                    RaycastHit portalHit;
-                    if (Physics.Raycast(portalRay, out portalHit))
-                    {
-                        curObject = portalHit.collider.gameObject;
-
-                        Debug.Log(portalHit.collider.gameObject);
-                    }
-                    else
-                    {
-                        curObject = null;
-                    }
+                    portalRay = frontViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2)) * frontViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2 - 1) * frontViewCamera.pixelHeight, Input.mousePosition.z));
                 }
                 else if (Input.mousePosition.x < Screen.height / 2 && Input.mousePosition.y < Screen.height / 2)
                 {
-
                     curViewSelected = 1;
-                    Ray portalRay = topViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2)) * topViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2) * topViewCamera.pixelHeight, Input.mousePosition.z));
-                    RaycastHit portalHit;
-                    if (Physics.Raycast(portalRay, out portalHit))
-                    {
-                        curObject = portalHit.collider.gameObject;
-                        Debug.Log(portalHit.collider.gameObject);
-                    }
-                    else
-                    {
-                        curObject = null;
-                    }
+                    portalRay = topViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2)) * topViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2) * topViewCamera.pixelHeight, Input.mousePosition.z));
                 }
                 else if (Input.mousePosition.x > Screen.height / 2 && Input.mousePosition.y > Screen.height / 2 && Input.mousePosition.x < Screen.height)
                 {
                     curViewSelected = 2;
-                    Ray portalRay = rightViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2) - 1) * rightViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2 - 1) * rightViewCamera.pixelHeight, Input.mousePosition.z));
-                    RaycastHit portalHit;
-                    if (Physics.Raycast(portalRay, out portalHit))
-                    {
-                        curObject = portalHit.collider.gameObject;
-                        Debug.Log(portalHit.collider.gameObject);
-                    }
-                    else
-                    {
-                        curObject = null;
-                    }
+                    portalRay = rightViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2) - 1) * rightViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2 - 1) * rightViewCamera.pixelHeight, Input.mousePosition.z));
                 }
                 else if (Input.mousePosition.x > Screen.height / 2 && Input.mousePosition.y < Screen.height / 2 && Input.mousePosition.x < Screen.height)
                 {
                     curViewSelected = 3;
-                    Ray portalRay = perspectiveViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2) - 1) * perspectiveViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2) * perspectiveViewCamera.pixelHeight, Input.mousePosition.z));
-                    RaycastHit portalHit;
-                    if (Physics.Raycast(portalRay, out portalHit))
-                    {
-                        curObject = portalHit.collider.gameObject;
-                        Debug.Log(portalHit.collider.gameObject);
-                    }
-                    else
-                    {
-                        curObject = null;
-                    }
+                    portalRay = perspectiveViewCamera.ScreenPointToRay(new Vector3(((Input.mousePosition.x / Screen.width) * Screen.width / (Screen.height / 2) - 1) * perspectiveViewCamera.pixelWidth, ((Input.mousePosition.y / Screen.height) * 2) * perspectiveViewCamera.pixelHeight, Input.mousePosition.z));
                 }
             }
-            else if(curViewState == 0)
+            else if (curViewState == 0)
             {
-                Ray portalRay = frontViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * frontViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * frontViewCamera.pixelHeight, Input.mousePosition.z));
-                RaycastHit portalHit;
-                if (Physics.Raycast(portalRay, out portalHit))
-                {
-                    curObject = portalHit.collider.gameObject;
-                    Debug.Log(portalHit.collider.gameObject);
-                }
-                else
-                {
-                    curObject = null;
-                }
+                portalRay = frontViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * frontViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * frontViewCamera.pixelHeight, Input.mousePosition.z));
             }
             else if (curViewState == 1)
             {
-                Ray portalRay = topViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * topViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * topViewCamera.pixelHeight, Input.mousePosition.z));
-                RaycastHit portalHit;
-                if (Physics.Raycast(portalRay, out portalHit))
-                {
-                    curObject = portalHit.collider.gameObject;
-                    Debug.Log(portalHit.collider.gameObject);
-                }
-                else
-                {
-                    curObject = null;
-                }
+                portalRay = topViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * topViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * topViewCamera.pixelHeight, Input.mousePosition.z));
             }
             else if (curViewState == 2)
             {
-                Ray portalRay = rightViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * rightViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * rightViewCamera.pixelHeight, Input.mousePosition.z));
-                RaycastHit portalHit;
-                if (Physics.Raycast(portalRay, out portalHit))
-                {
-                    curObject = portalHit.collider.gameObject;
-                    Debug.Log(portalHit.collider.gameObject);
-                }
-                else
-                {
-                    curObject = null;
-                }
+                portalRay = rightViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * rightViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * rightViewCamera.pixelHeight, Input.mousePosition.z));
             }
             else if (curViewState == 3)
             {
-                Ray portalRay = perspectiveViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * perspectiveViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * perspectiveViewCamera.pixelHeight, Input.mousePosition.z));
+                portalRay = perspectiveViewCamera.ScreenPointToRay(new Vector3((Input.mousePosition.x / Screen.height) * perspectiveViewCamera.pixelWidth, (Input.mousePosition.y / Screen.height) * perspectiveViewCamera.pixelHeight, Input.mousePosition.z));
+            }
                 RaycastHit portalHit;
+            if (portalRay.direction != Vector3.zero)
                 if (Physics.Raycast(portalRay, out portalHit))
                 {
-                    curObject = portalHit.collider.gameObject;
+                    if (portalHit.collider.gameObject.CompareTag("BaseModel"))
+                        curObject = portalHit.collider.gameObject;
+
+                    if (portalHit.collider.gameObject.CompareTag("MoveAxes"))
+                        curAxisObject = portalHit.collider.gameObject;
+                    else
+                        curAxisObject = null;
                     Debug.Log(portalHit.collider.gameObject);
                 }
                 else
                 {
                     curObject = null;
+                    curAxisObject = null;
                 }
-            }
+            
         }
         else if (Input.GetMouseButton(2))
         {
@@ -218,6 +154,7 @@ public class GUIView : MonoBehaviour {
                     {
                         perspectiveViewCamera.transform.position += -perspectiveViewCamera.transform.right * (Time.deltaTime * perspectivemouseSens);
                     }
+                    else
                     if (Input.GetAxis("Mouse X") < 0)
                     {
                         perspectiveViewCamera.transform.position += perspectiveViewCamera.transform.right * (Time.deltaTime * perspectivemouseSens);
@@ -226,9 +163,11 @@ public class GUIView : MonoBehaviour {
                     {
                         perspectiveViewCamera.transform.position += -perspectiveViewCamera.transform.up * (Time.deltaTime * perspectivemouseSens);
                     }
+                    else
                     if (Input.GetAxis("Mouse Y") < 0)
                     {
                         perspectiveViewCamera.transform.position += perspectiveViewCamera.transform.up * (Time.deltaTime * perspectivemouseSens);
+
                     }
                 }
             }
@@ -264,6 +203,7 @@ public class GUIView : MonoBehaviour {
                 }
             }
         }
+
         else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             if (curViewState == -1)
@@ -391,9 +331,11 @@ public class GUIView : MonoBehaviour {
                 perspectiveViewCamera.transform.position += -perspectiveViewCamera.transform.forward * (Time.deltaTime * perspectivemouseSens * 5);
             }
         }
-
-
     }
+
+
+        
+    
 
     void OnGUI()
     {
@@ -457,7 +399,7 @@ public class GUIView : MonoBehaviour {
         scrollPos = GUILayout.BeginScrollView(scrollPos,true, false,GUILayout.Width(Screen.width - Screen.height), GUILayout.Height(300));
         foreach (GameObject cube in GameObject.FindGameObjectsWithTag("BaseModel"))
         {
-            if (cube.GetComponent<MeshRenderer>().material.color.a == 0.5f && curObject != cube )
+            if (cube.GetComponent<MeshRenderer>().material.color.a == 0.7f && curObject != cube )
             {
                 Color color = cube.GetComponent<MeshRenderer>().material.color;
                 color.a = 1.0f;
@@ -474,23 +416,71 @@ public class GUIView : MonoBehaviour {
             transPosObj.transform.position = curObject.transform.position;
             transPosObj.SetActive(true);
             Color color = curObject.GetComponent<MeshRenderer>().material.color;
-            color.a = 0.5f;
+            color.a = 0.7f;
             curObject.GetComponent<MeshRenderer>().material.color = color;
-            float x = curObject.transform.position.x, y = curObject.transform.position.y, z = curObject.transform.position.z;
+            CubeProp cubeProp = curObject.GetComponent<CubeProp>();
             GUILayout.Label("Position:");
             GUILayout.BeginHorizontal();
             GUILayout.Label("X:");
-            x = float.Parse(GUILayout.TextField(x.ToString()));
+            if(cubeProp.xPos.ToString() != "")
+                cubeProp.xPos = float.Parse(GUILayout.TextField(cubeProp.xPos.ToString()));
             GUILayout.Label("Y:");
-            y = float.Parse(GUILayout.TextField(y.ToString()));
+            if (cubeProp.yPos.ToString() != "")
+                cubeProp.yPos = float.Parse(GUILayout.TextField(cubeProp.yPos.ToString()));
             GUILayout.Label("Z:");
-            z = float.Parse(GUILayout.TextField(z.ToString()));
+            if (cubeProp.zPos.ToString() != "")
+                cubeProp.zPos = float.Parse(GUILayout.TextField(cubeProp.zPos.ToString()));
             GUILayout.EndHorizontal();
-            curObject.transform.position = new Vector3(x, y, z);
+            if(curObject.transform.position != new Vector3(cubeProp.xPos, cubeProp.yPos, cubeProp.zPos))
+                curObject.transform.position = new Vector3(cubeProp.xPos, cubeProp.yPos, cubeProp.zPos);
+
+            GUILayout.Label("Rotation:");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("X:");
+            if (cubeProp.xRot.ToString() != "")
+            {
+                GUILayout.BeginVertical();
+                cubeProp.xRot = float.Parse(GUILayout.TextField(cubeProp.xRot.ToString("000.000")));
+                cubeProp.xRot = GUILayout.HorizontalSlider(cubeProp.xRot, 0, 360);
+                GUILayout.EndVertical();
+            }
+            GUILayout.Label("Y:");
+            if (cubeProp.yRot.ToString() != "")
+            {
+                GUILayout.BeginVertical();
+                cubeProp.yRot = float.Parse(GUILayout.TextField(cubeProp.yRot.ToString("000.000")));
+                cubeProp.yRot = GUILayout.HorizontalSlider(cubeProp.yRot, 0, 360);
+                GUILayout.EndVertical();
+            }
+            GUILayout.Label("Z:");
+            if (cubeProp.zRot.ToString() != "")
+            {
+                GUILayout.BeginVertical();
+                cubeProp.zRot = float.Parse(GUILayout.TextField(cubeProp.zRot.ToString("000.000")));
+                cubeProp.zRot = GUILayout.HorizontalSlider(cubeProp.zRot, 0, 360);
+                GUILayout.EndVertical();
+            }
+            GUILayout.EndHorizontal();
+            if (curObject.transform.rotation.eulerAngles != new Vector3(cubeProp.xRot, cubeProp.yRot, cubeProp.zRot))
+                curObject.transform.rotation = Quaternion.Euler(cubeProp.xRot, cubeProp.yRot, cubeProp.zRot);
+
+            GUILayout.Label("Scale:");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("X:");
+            if (cubeProp.xScale.ToString() != "")
+                cubeProp.xScale = float.Parse(GUILayout.TextField(cubeProp.xScale.ToString()));
+            GUILayout.Label("Y:");
+            if (cubeProp.yScale.ToString() != "")
+                cubeProp.yScale = float.Parse(GUILayout.TextField(cubeProp.yScale.ToString()));
+            GUILayout.Label("Z:");
+            if (cubeProp.zScale.ToString() != "")
+                cubeProp.zScale = float.Parse(GUILayout.TextField(cubeProp.zScale.ToString()));
+            GUILayout.EndHorizontal();
+            if (curObject.transform.localScale != new Vector3(cubeProp.xScale, cubeProp.yScale, cubeProp.zScale))
+                curObject.transform.localScale = new Vector3(cubeProp.xScale, cubeProp.yScale, cubeProp.zScale);
         }
         else
         {
-
             transPosObj.SetActive(false);
         }
 

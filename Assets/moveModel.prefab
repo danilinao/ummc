@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 64448603347728968}
   m_Layer: 0
   m_Name: xAxi
-  m_TagString: Untagged
+  m_TagString: MoveAxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 64801192078491818}
   m_Layer: 0
   m_Name: zAxi
-  m_TagString: Untagged
+  m_TagString: MoveAxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4462882361236876}
   m_Layer: 0
   m_Name: moveModel
-  m_TagString: Untagged
+  m_TagString: MoveAxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 64422539786734946}
   m_Layer: 0
   m_Name: yAxi
-  m_TagString: Untagged
+  m_TagString: MoveAxes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
